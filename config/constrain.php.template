@@ -1,0 +1,19 @@
+<?php
+/**
+ * @package tnn-report.server
+ * @subpackage api
+ * @copyright Copyright (C) 2012 Thai Netizen Network Developer. All rights reserved.
+ * @license GNU General Public License version 2 or later; see COPYING
+ */
+
+defined( '_VALID_ACCESS' ) or die( 'Direct Access to this location is not allowed.' );
+
+$clients = array(
+	'firefox' => array( 'version'=> '1.0','download_url' => 'http://www.google.com/search?q=firefox' ),
+	'chrome' => array( 'version'=> '1.0', 'download_url' => 'http://www.google.com/search?q=chrome' )
+);
+
+$servers = array(
+	'www1.example.com/api',
+	'www2.example.com/api'
+);
