@@ -9,18 +9,17 @@
 defined( '_VALID_ACCESS' ) or die( 'Direct Access to this location is not allowed.' );
 
 function listClients() {
-	global $clients;
-	return responseDynamicList('clients',$clients);
-
+  global $clients;
+  return responseDynamicList('clients',$clients);
 }
 
 function listServers() {
-	global $servers;
-	return responseDynamicList('servers',$servers);
+  global $servers;
+  return responseDynamicList('servers',$servers);
 }
 
 function listLandings() {
-	$landings = getLandings(true);
-	$conn = getPDOConnection();
-	return responseDynamicList('landings',$landings);
+  $conn = getPDOConnection();
+  $landings = getLandings(true);
+  return responseDynamicList('landings',$landings);
 }

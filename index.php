@@ -14,14 +14,14 @@ require_once( 'functions.php' );
 require_once( 'method.php' );
 
 $get_actions = array(
-'/clients/' => 'listClients',
-'/servers/' => 'listServers',
-'/landings/' => 'listLandings'
+  '/clients/' => 'listClients',
+  '/servers/' => 'listServers',
+  '/landings/' => 'listLandings'
 );
 
 $post_actions = array(
-'/blocks/' => 'addBlock',
-'/landings/' => 'addLanding'
+  '/blocks/' => 'addBlock',
+  '/landings/' => 'addLanding'
 );
 
 $url = getRequestPath();
@@ -34,14 +34,14 @@ $actions = $_SERVER['REQUEST_METHOD'] === 'GET' ? $get_actions : $post_actions;
 
 $called = false;
 foreach( $actions as $action_prefix => $function )  {
-	if(strpos( $url,$action_prefix ) === 0 ) {
-		$output = call_user_func( $function, $params );
-		echo json_encode( $output );
-		$called = true;
-		break;
-	}
+  if(strpos( $url,$action_prefix ) === 0 ) {
+    $output = call_user_func( $function, $params );
+    echo json_encode( $output );
+    $called = true;
+    break;
+  }
 }
 
 if(!$called) {
-	error( 'Method Not Found' );
+  error( 'Method Not Found' );
 }
