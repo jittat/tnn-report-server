@@ -51,6 +51,14 @@ function responseDynamicList( $type, $list ) {
   return array( $type => $results );
 }
 
+function responseStatus( $status, $description=null ) {
+  if($description==null)
+    return array('status' => $status);
+  else
+    return array('status' => $status,
+                 'desciption' => $description);
+}
+
 function getPDOConnection() {
   static $conn;
   if( !isset( $conn ) ) {
@@ -63,6 +71,15 @@ function getPDOConnection() {
     }
   }
   return $conn;
+}
+
+function trimAddress($addr) {
+  $items = explode('.',$addr);
+  if(count($items)==4) {
+    $items[3] = '0';
+    return implode('.',$items);
+  } else 
+    return $addr;
 }
 
 function getLandings( $only_approved = true ) {
@@ -78,4 +95,20 @@ function getLandings( $only_approved = true ) {
     $landings[] = $landing['landing_url'];
   }
   return $landings;
+}
+
+function saveBlock( $block_url, $addr, $landing_url, $comment ) {
+  $conn = getPDOConnection();
+  $timestamp = (new DateTime())->format('Y-m-d H:i:s');
+
+  $addr = trimAddress($addr);
+
+  $sql = 'INSERT INTO blocks (block_url, addr, landing_url, comment, reported_at) '.
+    'VALUES ('. $conn->quote($block_url). ','.
+    $conn->quote($addr). ','.
+    $conn->quote($landing_url). ','.
+    $conn->quote($comment). ','.
+    $conn->quote($timestamp). ')';
+  $result = $conn->exec($sql);
+  return $result !== false;
 }
