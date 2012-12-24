@@ -99,7 +99,8 @@ function getLandings( $only_approved = true ) {
 
 function saveBlock( $block_url, $addr, $landing_url, $comment ) {
   $conn = getPDOConnection();
-  $timestamp = (new DateTime())->format('Y-m-d H:i:s');
+  $now = new DateTime();
+  $timestamp = $now->format('Y-m-d H:i:s');
 
   $addr = trimAddress($addr);
 
